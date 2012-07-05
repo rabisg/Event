@@ -1,0 +1,21 @@
+This module is developed as a part of Google Summer
+of Code'12 project.
+Author: Rabi Shanker Guha(rabisg)
+Mentor: Peter Borsa(asrob)
+
+This module is still is development stage. Please submit
+your suggestions/proposals at
+https://fedoraproject.org/w/index.php?title=Insight_Events
+
+HOW TO INSTALL IT
+
+1. Get this module in your modules directory and enable it in
+admin/module.
+This module is a custom feature that creates an Event node type
+
+2. Go to admin/structure/types/manage/event and on the
+"Signup Settings" tab select "Enabled (on by default)" and
+select "Start Time" under "Date field to use with signup"
+
+3. You might also want to set up some defaults at
+admin/config/people/signup
