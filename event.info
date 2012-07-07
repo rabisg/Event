@@ -42,3 +42,4 @@ features[user_permission][] = sign up for content
 features[user_permission][] = view all signups
 features[user_role][] = event manager
 stylesheets[all][] = 1
+stylesheets[all][] = css/event-css.css

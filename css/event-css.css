@@ -1,0 +1,31 @@
+.node-event .event-dp {
+  float: left;
+  padding-right: 10px;
+}
+.node-event .node-content {
+  width:550px;
+  float:left;
+}
+.node-event .node-header{
+  font-size: 14px;
+  text-transform: capitalize;
+  font-family: Georgia,"Times New Roman",Times,serif;
+  font-weight: bold;
+  color: #808080;
+}
+.node-event .node-body {
+  padding-top: 7px;
+  font-size: 13px;
+}
+.node-event .view-content {
+  margin-top: 10px;
+}
+.node-event div.link-wrapper {
+  padding-top: 3px;
+}
+.node-event .field-label {
+  font-size: 1.2em;
+}
+.node-event .field-label-inline .field-items {
+  font-size: 1.1em;
+}

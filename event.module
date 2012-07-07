@@ -29,3 +29,60 @@ function _event_insert_after_first_element(&$a, $element) {
     array_unshift($a, $first_element, $element);
   }
 }
+
+/**
+ * Implements hook_node_view
+ * Add Signup link to Teaser if Signup is allowed
+ */
+function event_node_view($node, $view_mode, $langcode) {
+  if ($node->type != 'event')
+    return;
+  $node->display_image = theme('image', array('path' => $node->field_event_dp['und'][0]['uri'], 'alt' => $node->title, 'title' => 'Event', 'attributes' => array('class' => 'thumb', 'width' => '50px', 'height' => '50px')));
+  if($view_mode != 'teaser' || _event_signup_access($node, 'signup') == FALSE)
+    return;
+  $node->content['links']['event'] = array(
+    '#links' => array(
+      array(
+        'title' => 'Signup',
+        'href' => url('node/'. $node->nid, array('absolute' => TRUE, 'fragment' => 'signup')),
+      ),
+    ),
+  );
+}
+
+/**
+ * Helper function to determine whether
+ * Signup link should be displayed on this event node
+ */
+function _event_signup_access($node) {
+  // If the node isn't signup enabled, immediately return failure.
+  if (empty($node->signup) || !$node->signup_status) {
+    return FALSE;
+  }
+  // See if this user can signup and if the node has signup output.
+  return user_access('sign up for content');
+}
+
+/*
+ * Implements hook_contextual_links_view_alter().
+ * Add contextual links for Twitter hashtags, Trac Ticket etc.
+ */
+function event_contextual_links_view_alter(&$element, $items) {
+  // Check if we have a node link to process
+  if (isset($element['#element']['#node']->nid)) {
+    $node = $element['#element']['#node'];
+
+    // Content Type Event
+    if ($node->type == 'event') {
+      $links = &$element['#links'];
+
+      //Add the Twitter Trends Link if there is a hashtag associated with this Event
+      if (isset($node->field_hashtag['und'][0]['value']) && strlen($node->field_hashtag['und'][0]['value']) > 1 && $node->field_hashtag['und'][0]['value'][0] == '#') {
+        $links['twitter-trend'] = array(
+          'title' => t('Twitter Trend'),
+          'href' => url('http://twitter.com/#!/search?q=' . $node->field_hashtag['und'][0]['value']),
+        );
+      }
+    }
+  }
+}

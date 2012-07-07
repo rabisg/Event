@@ -1,0 +1,34 @@
+.node-insight-microblog .comment img{
+  width: 32px;
+  height: 32px;
+}
+.node-insight-microblog .commenter-name {
+  float: left;
+  padding-right: 5px;
+  margin-bottom: -10px;
+}
+.node-insight-microblog .field-name-comment-body {
+  display: inline;
+}
+.node-insight-microblog .comment .attribution{
+  padding: 0px;
+}
+.node-insight-microblog .comment .comment-text{
+  padding: 0px;
+  border: 0px;
+}
+.node-insight-microblog .comment .content{
+  margin-top: 0px;
+}
+.node-insight-microblog .comment p{
+  margin-bottom: -3px;
+}
+.node-insight-microblog .comment .field-item{
+  margin-top: -5px;
+}
+.node-insight-microblog .comment-wrapper .filter-wrapper{
+  display: none;
+}
+.node-insight-microblog .comment-wrapper label{
+  display: none;
+}
