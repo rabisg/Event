@@ -49,7 +49,7 @@ function event_field_default_fields() {
           'module' => 'text',
           'settings' => array(),
           'type' => 'text_default',
-          'weight' => '5',
+          'weight' => '6',
         ),
         'teaser' => array(
           'label' => 'hidden',
@@ -120,7 +120,7 @@ To post images/resources of the event refer to the Resources section.',
           'label' => 'above',
           'settings' => array(),
           'type' => 'hidden',
-          'weight' => '7',
+          'weight' => '8',
         ),
         'teaser' => array(
           'label' => 'above',
@@ -328,10 +328,11 @@ To post images/resources of the event refer to the Resources section.',
       'bundle' => 'event',
       'default_value' => NULL,
       'deleted' => '0',
-      'description' => '',
+      'description' => 'Share videos, pics or slides related to the event.
+URL\'s are automatically converted into links.',
       'display' => array(
         'default' => array(
-          'label' => 'inline',
+          'label' => 'above',
           'module' => 'text',
           'settings' => array(),
           'type' => 'text_default',
@@ -339,9 +340,10 @@ To post images/resources of the event refer to the Resources section.',
         ),
         'teaser' => array(
           'label' => 'above',
+          'module' => 'text',
           'settings' => array(),
-          'type' => 'hidden',
-          'weight' => '5',
+          'type' => 'text_default',
+          'weight' => '4',
         ),
       ),
       'entity_type' => 'node',
@@ -349,7 +351,7 @@ To post images/resources of the event refer to the Resources section.',
       'label' => 'Resources',
       'required' => 0,
       'settings' => array(
-        'text_processing' => '1',
+        'text_processing' => '0',
         'user_register_form' => FALSE,
       ),
       'widget' => array(
@@ -554,13 +556,15 @@ To post images/resources of the event refer to the Resources section.',
       'bundle' => 'event',
       'default_value' => NULL,
       'deleted' => '0',
-      'description' => 'Enter the Trac Ticket to help manage sponsorship requests.',
+      'description' => 'Enter the Trac Ticket to help manage sponsorship requests.
+Converted to Link Automatically.',
       'display' => array(
         'default' => array(
-          'label' => 'above',
+          'label' => 'inline',
+          'module' => 'text',
           'settings' => array(),
-          'type' => 'hidden',
-          'weight' => '8',
+          'type' => 'text_default',
+          'weight' => '5',
         ),
         'teaser' => array(
           'label' => 'above',
@@ -719,9 +723,12 @@ To post images/resources of the event refer to the Resources section.',
 Note that this appears as the thumbnail of the image only.
 To post images/resources of the event refer to the Resources section.');
   t('Enter a comma separated list of the presentors(s)');
-  t('Enter the Trac Ticket to help manage sponsorship requests.');
+  t('Enter the Trac Ticket to help manage sponsorship requests.
+Converted to Link Automatically.');
   t('Presentor');
   t('Resources');
+  t('Share videos, pics or slides related to the event.
+URL\'s are automatically converted into links.');
   t('Start Time');
   t('The Twitter Hashtag to help identify Tweets trending on this topic and let users tweet about this.');
   t('Topic');
