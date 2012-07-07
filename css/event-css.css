@@ -23,9 +23,9 @@
 .node-event div.link-wrapper {
   padding-top: 3px;
 }
-.node-event .field-label {
-  font-size: 1.2em;
-}
-.node-event .field-label-inline .field-items {
+.node-event .field {
   font-size: 1.1em;
+}
+.node-event .field-name-body .field-items {
+  font-size: 0.9em;
 }

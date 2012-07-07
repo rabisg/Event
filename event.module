@@ -6,9 +6,10 @@
 
 include_once 'event.features.inc';
 
+
 /**
  * Implements hook_theme_registry_alter()
-**/
+ */
 function event_theme_registry_alter(&$theme_registry) {
   $mod_path = drupal_get_path('module', 'event') . '/theme';
   $theme_registry_copy = $theme_registry;       // munge on a copy
@@ -33,11 +34,38 @@ function _event_insert_after_first_element(&$a, $element) {
 /**
  * Implements hook_node_view
  * Add Signup link to Teaser if Signup is allowed
+ * Converts URL in Trac Ticket and Resources into links
+ * Hides Venue and Time fields if current time is greater than
+ * the event end time
  */
 function event_node_view($node, $view_mode, $langcode) {
   if ($node->type != 'event')
     return;
+
+  //Converts url in Trac Ticket fields into links
+  if (isset($node->content['field_trac_ticket'][0]['#markup'])) {
+    $node->content['field_trac_ticket'][0]['#markup'] = make_clickable($node->content['field_trac_ticket'][0]['#markup']);
+  }
+
+  //Converts url in Resources field to links
+  $i = 0;
+  while (isset($node->content['field_resources'][$i])) {
+      $node->content['field_resources'][$i]['#markup'] = make_clickable($node->content['field_resources'][$i]['#markup']);
+      $i++;
+  }
+  
+  //Hides Trac Ticket, Time and Venue fields
+  $time = strtotime($node->field_start_time['und'][0]['value2']);
+  if (REQUEST_TIME > $time) {
+    unset($node->content['field_trac_ticket']);
+    unset($node->content['field_start_time']);
+    unset($node->content['field_venue']);
+  }
+
+  //Adds a display_image variable which is the Display Image field
   $node->display_image = theme('image', array('path' => $node->field_event_dp['und'][0]['uri'], 'alt' => $node->title, 'title' => 'Event', 'attributes' => array('class' => 'thumb', 'width' => '50px', 'height' => '50px')));
+
+  //Adds a signup link on teasers
   if($view_mode != 'teaser' || _event_signup_access($node, 'signup') == FALSE)
     return;
   $node->content['links']['event'] = array(
@@ -76,13 +104,65 @@ function event_contextual_links_view_alter(&$element, $items) {
     if ($node->type == 'event') {
       $links = &$element['#links'];
 
+      $links['trac-ticket'] = array(
+        'title' => t('Trac Ticket'),
+        'href' => $node->field_trac_ticket['und'][0]['value'],
+      );
       //Add the Twitter Trends Link if there is a hashtag associated with this Event
       if (isset($node->field_hashtag['und'][0]['value']) && strlen($node->field_hashtag['und'][0]['value']) > 1 && $node->field_hashtag['und'][0]['value'][0] == '#') {
         $links['twitter-trend'] = array(
           'title' => t('Twitter Trend'),
-          'href' => url('http://twitter.com/#!/search?q=' . $node->field_hashtag['und'][0]['value']),
+          'href' => url('http://twitter.com/#!/search?q=%23' . substr($node->field_hashtag['und'][0]['value'], 1)),
         );
       }
     }
   }
 }
+
+function _make_url_clickable_cb($matches) {
+	$ret = '';
+	$url = $matches[2];
+ 
+	if ( empty($url) )
+		return $matches[0];
+	// removed trailing [.,;:] from URL
+	if ( in_array(substr($url, -1), array('.', ',', ';', ':')) === true ) {
+		$ret = substr($url, -1);
+		$url = substr($url, 0, strlen($url)-1);
+	}
+	return $matches[1] . "<a href=\"$url\" rel=\"nofollow\">$url</a>" . $ret;
+}
+ 
+function _make_web_ftp_clickable_cb($matches) {
+	$ret = '';
+	$dest = $matches[2];
+	$dest = 'http://' . $dest;
+ 
+	if ( empty($dest) )
+		return $matches[0];
+	// removed trailing [,;:] from URL
+	if ( in_array(substr($dest, -1), array('.', ',', ';', ':')) === true ) {
+		$ret = substr($dest, -1);
+		$dest = substr($dest, 0, strlen($dest)-1);
+	}
+	return $matches[1] . "<a href=\"$dest\" rel=\"nofollow\">$dest</a>" . $ret;
+}
+ 
+function _make_email_clickable_cb($matches) {
+	$email = $matches[2] . '@' . $matches[3];
+	return $matches[1] . "<a href=\"mailto:$email\">$email</a>";
+}
+ 
+function make_clickable($ret) {
+	$ret = ' ' . $ret;
+	// in testing, using arrays here was found to be faster
+	$ret = preg_replace_callback('#([\s>])([\w]+?://[\w\\x80-\\xff\#$%&~/.\-;:=,?@\[\]+]*)#is', '_make_url_clickable_cb', $ret);
+	$ret = preg_replace_callback('#([\s>])((www|ftp)\.[\w\\x80-\\xff\#$%&~/.\-;:=,?@\[\]+]*)#is', '_make_web_ftp_clickable_cb', $ret);
+	$ret = preg_replace_callback('#([\s>])([.0-9a-z_+-]+)@(([0-9a-z-]+\.)+[0-9a-z]{2,})#i', '_make_email_clickable_cb', $ret);
+ 
+	// this one is not in an array because we need it to run last, for cleanup of accidental links within links
+	$ret = preg_replace("#(<a( [^>]+?>|>))<a [^>]+?>([^>]+?)</a></a>#i", "$1$3</a>", $ret);
+	$ret = trim($ret);
+	return $ret;
+}
+
