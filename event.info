@@ -43,3 +43,4 @@ features[user_permission][] = email users signed up for own content
 features[user_permission][] = sign up for content
 features[user_permission][] = view all signups
 features[user_role][] = event manager
+features[views_view][] = insight_events
