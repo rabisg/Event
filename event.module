@@ -104,10 +104,12 @@ function event_contextual_links_view_alter(&$element, $items) {
     if ($node->type == 'event') {
       $links = &$element['#links'];
 
-      $links['trac-ticket'] = array(
-        'title' => t('Trac Ticket'),
-        'href' => $node->field_trac_ticket['und'][0]['value'],
-      );
+      if(!empty($node->field_trac_ticket['und'][0]['value'])) {
+        $links['trac-ticket'] = array(
+          'title' => t('Trac Ticket'),
+          'href' => $node->field_trac_ticket['und'][0]['value'],
+        );
+      }
       //Add the Twitter Trends Link if there is a hashtag associated with this Event
       if (isset($node->field_hashtag['und'][0]['value']) && strlen($node->field_hashtag['und'][0]['value']) > 1 && $node->field_hashtag['und'][0]['value'][0] == '#') {
         $links['twitter-trend'] = array(
