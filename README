@@ -19,3 +19,6 @@ select "Start Time" under "Date field to use with signup"
 
 3. You might also want to set up some defaults at
 admin/config/people/signup
+
+4. In the calendar view included, the default Caching parameter is
+se to FALSE. Set it appropiately on the final installation
