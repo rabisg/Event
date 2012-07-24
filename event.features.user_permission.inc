@@ -20,44 +20,31 @@ function event_user_default_permissions() {
     'module' => 'contextual',
   );
 
-  // Exported permission: administer all signups.
-  $permissions['administer all signups'] = array(
-    'name' => 'administer all signups',
+  // Exported permission: administer registration.
+  $permissions['administer registration'] = array(
+    'name' => 'administer registration',
     'roles' => array(
       0 => 'administrator',
-      1 => 'event manager',
     ),
-    'module' => 'signup',
+    'module' => 'registration',
   );
 
-  // Exported permission: administer signups for own content.
-  $permissions['administer signups for own content'] = array(
-    'name' => 'administer signups for own content',
+  // Exported permission: administer registration states.
+  $permissions['administer registration states'] = array(
+    'name' => 'administer registration states',
     'roles' => array(
       0 => 'administrator',
-      1 => 'authenticated user',
     ),
-    'module' => 'signup',
+    'module' => 'registration',
   );
 
-  // Exported permission: cancel own signups.
-  $permissions['cancel own signups'] = array(
-    'name' => 'cancel own signups',
+  // Exported permission: administer registration types.
+  $permissions['administer registration types'] = array(
+    'name' => 'administer registration types',
     'roles' => array(
       0 => 'administrator',
-      1 => 'authenticated user',
     ),
-    'module' => 'signup',
-  );
-
-  // Exported permission: cancel signups.
-  $permissions['cancel signups'] = array(
-    'name' => 'cancel signups',
-    'roles' => array(
-      0 => 'administrator',
-      1 => 'event manager',
-    ),
-    'module' => 'signup',
+    'module' => 'registration',
   );
 
   // Exported permission: create event content.
@@ -103,56 +90,6 @@ function event_user_default_permissions() {
       0 => 'authenticated user',
     ),
     'module' => 'node',
-  );
-
-  // Exported permission: edit own signups.
-  $permissions['edit own signups'] = array(
-    'name' => 'edit own signups',
-    'roles' => array(
-      0 => 'administrator',
-      1 => 'authenticated user',
-    ),
-    'module' => 'signup',
-  );
-
-  // Exported permission: email all signed up users.
-  $permissions['email all signed up users'] = array(
-    'name' => 'email all signed up users',
-    'roles' => array(
-      0 => 'administrator',
-      1 => 'event manager',
-    ),
-    'module' => 'signup',
-  );
-
-  // Exported permission: email users signed up for own content.
-  $permissions['email users signed up for own content'] = array(
-    'name' => 'email users signed up for own content',
-    'roles' => array(
-      0 => 'administrator',
-      1 => 'authenticated user',
-    ),
-    'module' => 'signup',
-  );
-
-  // Exported permission: sign up for content.
-  $permissions['sign up for content'] = array(
-    'name' => 'sign up for content',
-    'roles' => array(
-      0 => 'administrator',
-      1 => 'authenticated user',
-    ),
-    'module' => 'signup',
-  );
-
-  // Exported permission: view all signups.
-  $permissions['view all signups'] = array(
-    'name' => 'view all signups',
-    'roles' => array(
-      0 => 'administrator',
-      1 => 'event manager',
-    ),
-    'module' => 'signup',
   );
 
   return $permissions;
