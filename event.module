@@ -17,7 +17,7 @@ function event_theme_registry_alter(&$theme_registry) {
   $theme_registry += array_diff_key($theme_registry_copy, $theme_registry);
   $hooks = array('node');
   foreach ($hooks as $h) {
-    _insight_status_insert_after_first_element($theme_registry[$h]['theme paths'], $mod_path);
+    _event_insert_after_first_element($theme_registry[$h]['theme paths'], $mod_path);
   }
 }
 
