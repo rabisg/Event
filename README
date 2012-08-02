@@ -3,9 +3,9 @@ of Code'12 project.
 Author: Rabi Shanker Guha(rabisg)
 Mentor: Peter Borsa(asrob)
 
-This module is still is development stage. Please submit
+This module is still is in alpha stage. Please submit
 your suggestions/proposals at
-https://fedoraproject.org/w/index.php?title=Insight_Events
+https://fedoraproject.org/wiki/Insight_Events
 
 HOW TO INSTALL IT
 
@@ -13,12 +13,17 @@ HOW TO INSTALL IT
 admin/module.
 This module is a custom feature that creates an Event node type
 
-2. Go to admin/structure/types/manage/event and on the
-"Signup Settings" tab select "Enabled (on by default)" and
-select "Start Time" under "Date field to use with signup"
+2. Start adding events at node/add/event
+   The fields are mostly self-explanatory. The Start Time field is
+   what appears in the calendar view.
 
-3. You might also want to set up some defaults at
-admin/config/people/signup
+3. For the Signup Part, you must add Registration Bundle/Type
+   For detailed instruction see the following link:
+   http://drupalcode.org/project/registration.git/blob/refs/heads/7.x-1.x:/README.txt
+   Currently permissions are given only to Administrator role.
 
-4. In the calendar view included, the default Caching parameter is
+4. Once you have registration types, you can select them in the
+   Signup Dropdown.
+
+5. In the calendar view included, the default Caching parameter is
 se to FALSE. Set it appropiately on the final installation
